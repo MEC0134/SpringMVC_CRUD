@@ -7,6 +7,7 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
 </head>
 <body>
+
     <div class="container">
 
         <h3>Employee Directory</h3>
@@ -33,8 +34,14 @@
                     <td th:text="${employee.lastName}"></td>
                     <td th:text="${employee.email}"></td>
                     <td>
+                        <!-- Update Employee -->
                         <a th:href="@{/employees/update-employee-form(empId=${employee.id})}" class="btn btn-info btn-sm">Update</a>
-                        <a th:href="@{/employees/deleteEmployee(empId=${employee.id})}" class="btn btn-danger btn-sm ml-4">Delete</a>
+                        <!-- Delete Employee -->
+                        <a th:href="@{/employees/delete-employee(empId=${employee.id})}"
+                           class="btn btn-danger btn-sm ml-4"
+                           onclick="if(!(confirm('Are you sure you want to delete this employee?'))) return false">
+                            Delete
+                        </a>
                     </td>
                 </tr>
             </tbody>
