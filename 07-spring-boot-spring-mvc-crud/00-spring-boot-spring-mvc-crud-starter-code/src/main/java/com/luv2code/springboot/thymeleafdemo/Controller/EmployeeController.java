@@ -5,6 +5,7 @@ import com.luv2code.springboot.thymeleafdemo.service.EmployeeService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.List;
 
@@ -50,10 +51,14 @@ public class EmployeeController {
 
 
     @PostMapping("/save")
-    public String processForm(@ModelAttribute("employee") Employee theEmployee) {
+    public String processForm(@ModelAttribute("employee") Employee theEmployee, RedirectAttributes redirectAttributes) {
 
         // save employee to db
-        employeeService.save(theEmployee);
+        Employee theEmp = employeeService.save(theEmployee);
+
+        if(theEmp != null) {
+            redirectAttributes.addFlashAttribute("successMessage","Employee saved successfully!");
+        }
 
         // use redirect to prevent duplicate submissions
         return "redirect:/employees/list";
