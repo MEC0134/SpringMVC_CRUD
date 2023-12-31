@@ -60,9 +60,9 @@ public class EmployeeController {
         boolean containsKeyZero = theEmp.containsKey(0);
 
         if(containsKeyZero) {
-            redirectAttributes.addFlashAttribute("successMessage","Employee saved successfully!");
+            redirectAttributes.addFlashAttribute("message","Employee saved successfully!");
         } else {
-            redirectAttributes.addFlashAttribute("successMessage","Employee updated successfully!");
+            redirectAttributes.addFlashAttribute("message","Employee updated successfully!");
         }
 
         // use redirect to prevent duplicate submissions
@@ -86,14 +86,18 @@ public class EmployeeController {
 
 
     @GetMapping("/delete-employee")
-    public String deleteEmployee(@RequestParam("empId") int empId) {
+    public String deleteEmployee(@RequestParam("empId") int empId, RedirectAttributes redirectAttributes) {
 
-        employeeService.deleteById(empId);
+       Employee deletedEmp =  employeeService.deleteById(empId);
+
+        if(deletedEmp != null) {
+            redirectAttributes.addFlashAttribute("message","Employee deleted successfully!");
+        } else {
+            redirectAttributes.addFlashAttribute("errorMessage", "Employee not found or could not be deleted.");
+        }
 
         return "redirect:/employees/list";
     }
-
-
 
 
 }
