@@ -8,13 +8,13 @@
 </head>
 <body>
 
+    <!-- Hide Alert after 3 seconds -->
     <script th:if="${successMessage}">
-
         setTimeout(function() {
              var successMessage = document.getElementById("success-message");
                  successMessage.style.display = 'none';
               }, 3000);
-
+        console.log(successMessage)
     </script>
 
 
@@ -31,6 +31,7 @@
         <div th:if="${successMessage}" class="alert alert-success" id="success-message" role="alert">
             <p th:text="${successMessage}"></p>
         </div>
+
 
         <table class="table table-bordered table-striped">
 

@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.List;
+import java.util.Map;
 
 @Controller
 @RequestMapping("/employees") // base mapping for URL requests
@@ -53,11 +54,15 @@ public class EmployeeController {
     @PostMapping("/save")
     public String processForm(@ModelAttribute("employee") Employee theEmployee, RedirectAttributes redirectAttributes) {
 
-        // save employee to db
-        Employee theEmp = employeeService.save(theEmployee);
+        // save employee to db and store in Map
+        Map<Integer, Employee> theEmp = employeeService.save(theEmployee);
 
-        if(theEmp != null) {
+        boolean containsKeyZero = theEmp.containsKey(0);
+
+        if(containsKeyZero) {
             redirectAttributes.addFlashAttribute("successMessage","Employee saved successfully!");
+        } else {
+            redirectAttributes.addFlashAttribute("successMessage","Employee updated successfully!");
         }
 
         // use redirect to prevent duplicate submissions

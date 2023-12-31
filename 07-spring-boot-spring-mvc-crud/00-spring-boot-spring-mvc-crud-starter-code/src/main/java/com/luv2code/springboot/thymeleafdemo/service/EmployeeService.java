@@ -3,6 +3,7 @@ package com.luv2code.springboot.thymeleafdemo.service;
 import com.luv2code.springboot.thymeleafdemo.entity.Employee;
 
 import java.util.List;
+import java.util.Map;
 
 public interface EmployeeService {
 
@@ -10,7 +11,7 @@ public interface EmployeeService {
 
     Employee findById(int theId);
 
-    Employee save(Employee theEmployee);
+    Map<Integer, Employee> save(Employee theEmployee);
 
     void deleteById(int theId);
 

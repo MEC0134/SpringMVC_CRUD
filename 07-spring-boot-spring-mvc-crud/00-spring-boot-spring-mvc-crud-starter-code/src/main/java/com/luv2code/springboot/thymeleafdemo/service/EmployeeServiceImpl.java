@@ -5,8 +5,7 @@ import com.luv2code.springboot.thymeleafdemo.entity.Employee;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 @Service
 public class EmployeeServiceImpl implements EmployeeService {
@@ -17,6 +16,7 @@ public class EmployeeServiceImpl implements EmployeeService {
     public EmployeeServiceImpl(EmployeeRepository theEmployeeRepository) {
         employeeRepository = theEmployeeRepository;
     }
+
 
     @Override
     public List<Employee> findAll() {
@@ -41,14 +41,25 @@ public class EmployeeServiceImpl implements EmployeeService {
     }
 
     @Override
-    public Employee save(Employee theEmployee) {
-        return employeeRepository.save(theEmployee);
+    public Map<Integer, Employee> save(Employee theEmployee) {
+
+        Map<Integer, Employee> theEmp = new HashMap<Integer, Employee>();
+
+        theEmp.put(theEmployee.getId(), theEmployee);
+
+        Employee savedEmp = employeeRepository.save(theEmployee);
+
+        return theEmp;
     }
+
 
     @Override
     public void deleteById(int theId) {
         employeeRepository.deleteById(theId);
     }
+
+
+
 
 }
 
